@@ -1,0 +1,22 @@
+{
+  "name": "learnjs-catalog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RevaSA/learnjs-catalog.git"
+  },
+  "author": "Stanislav Reva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RevaSA/learnjs-catalog/issues"
+  },
+  "homepage": "https://github.com/RevaSA/learnjs-catalog#readme",
+  "devDependencies": {
+    "node-static": "^0.7.11"
+  }
+}

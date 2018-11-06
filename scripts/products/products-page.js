@@ -39,6 +39,7 @@ export default class ProductsPage {
   _loadPhonesFromServer() {
     ProductService.getPhones()
       .then((phones) => {
+        this._phones = this._foundPhones = phones;
         this._catalog.show(phones);
       });
   }
@@ -67,6 +68,33 @@ export default class ProductsPage {
   _initFilters() {
     this._filter = new ProductsFilter({
       element: this._element.querySelector('[data-component="phones-filter"]'),
+      timeUpdate: 500
+    });
+
+    this._filter.subscribe('search', value => {
+        let phones = [];
+
+        if (value.length >= 3) {
+          phones = this._phones.filter(phone => {
+            return phone.name.toLowerCase().includes(value.toLowerCase());
+          });
+        }
+
+        this._foundPhones = phones.length >= 1 ? phones : this._phones;
+        this._filter.emit('sort', this._filter.getSortValue());
+    });
+
+    this._filter.subscribe('sort', value => {
+        this._catalog.show(this._foundPhones.sort((a, b) => {
+          let [val1, val2] = [a[value], b[value]];
+
+          if (typeof val1 === 'string') {
+            val1 = val1.toLowerCase();
+            val2 = val2.toLowerCase();
+          }
+
+          return val1 > val2 ? 1 : -1;
+        }));
     });
   }
 

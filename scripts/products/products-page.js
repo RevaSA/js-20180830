@@ -54,8 +54,8 @@ export default class ProductsPage {
     });
 
     this._viewer.subscribe('back', () => {
-      if (window.history.replaceState) {
-          window.history.replaceState({}, null, '/');
+      if (window.location && window.history) {
+        window.history.replaceState({}, null, window.location.origin + window.location.pathname);
       }
 
       this._viewer.hide();

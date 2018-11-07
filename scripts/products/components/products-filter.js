@@ -45,8 +45,8 @@ export default class ProductsFilter extends Component {
       <p>
         Sort by:
         <select data-element="sort">
-          <option value="name">Alphabetical</option>
           <option value="age">Newest</option>
+          <option value="name">Alphabetical</option>
         </select>
       </p>
     `;

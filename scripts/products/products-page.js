@@ -14,6 +14,8 @@ export default class ProductsPage {
     this._initViewer();
     this._initShoppingCart();
     this._initFilters();
+
+    window.addEventListener('hashchange', this._changeProductFromHash.bind(this));
   }
 
   _initCatalog () {
@@ -24,16 +26,27 @@ export default class ProductsPage {
     this._loadPhonesFromServer();
 
     this._catalog.subscribe('phoneSelected', (phoneId) => {
+      if (!phoneId) {
+        return;
+      }
+
       ProductService.getPhone(phoneId)
-        .then((phoneDetails) => {
-          this._catalog.hide();
-          this._viewer.show(phoneDetails);
-        });
+        .then(
+          phoneDetails => {
+            this._catalog.hide();
+            this._viewer.show(phoneDetails);
+          },
+          () => {
+            console.warn(`${phoneId} - не найден.`);
+          }
+        );
     });
 
     this._catalog.subscribe('add', (phoneId) => {
       this._shoppingCart.addItem(phoneId);
     });
+
+    this._changeProductFromHash();
   }
 
   _loadPhonesFromServer() {
@@ -100,6 +113,14 @@ export default class ProductsPage {
           return val1 > val2 ? 1 : -1;
         }));
     });
+  }
+
+  _changeProductFromHash() {
+    if (!window.location) {
+      return;
+    }
+
+    this._catalog.emit('phoneSelected', window.location.hash.slice(1));
   }
 
   _render() {

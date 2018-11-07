@@ -34,7 +34,7 @@ export default class ProductCatalog extends Component {
             data-phone-id="${ phone.id }"
           >
             <a
-              href="#product/${ phone.id }"
+              href="#${ phone.id }"
               class="thumb"
               data-element="phone-details-link"
             >
@@ -48,7 +48,7 @@ export default class ProductCatalog extends Component {
             </div>
   
             <a
-              href="#product/${ phone.id }"
+              href="#${ phone.id }"
               data-element="phone-details-link"
             >
               ${ phone.name }

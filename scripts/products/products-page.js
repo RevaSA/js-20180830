@@ -54,6 +54,10 @@ export default class ProductsPage {
     });
 
     this._viewer.subscribe('back', () => {
+      if (window.history.replaceState) {
+          window.history.replaceState({}, null, '/');
+      }
+
       this._viewer.hide();
       this._loadPhonesFromServer();
     });

@@ -13,7 +13,7 @@ export default class ProductViewer extends Component{
     });
 
     this._on('click', 'product-img', ev => {
-        this._mainImg.src = ev.target.src;
+        this._mainImg.setAttribute('src', ev.target.getAttribute('src'));
     });
   }
 
